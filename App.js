@@ -4,13 +4,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// Import your components
-import ComboBadge from "./src/components/ComboBadge";
-import StatusDisplay from "./src/components/StatusDisplay";
-import Controls from "./src/components/Controls";
-import ToggleSwitch from "./src/components/ToggleSwitch";
-import SettingsModal from "./src/components/SettingsModal";
-
 // Import Screens
 import InstructionsScreen from "./src/screens/InstructionsScreen";
 import HomeScreen from "./src/screens/HomeScreen.js";

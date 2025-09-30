@@ -7,6 +7,9 @@ import ComboBadge from '../components/ComboBadge';
 import Controls from '../components/Controls';
 import ToggleSwitch from '../components/ToggleSwitch';
 import SettingsModal from '../components/SettingsModal';
+import punchMap from '../constants/punchMap';
+import { Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import generateCombo from '../utils/generateCombo';
 import speakCombo from '../utils/speakCombo';
@@ -32,6 +35,7 @@ export default function MainScreen({
 	const [currentVoice, setCurrentVoice] = useState('default');
 
 	const timerRef = useRef();
+	const navigation = useNavigation();
 
 	const playCombo = useCallback(() => {
 		const { minLen, maxLen, speechRate } = difficulties[difficulty] || difficulties.medium;
@@ -51,10 +55,10 @@ export default function MainScreen({
 			else setCombo('');
 		}
 
-		timerRef.current = setInterval(() => {
+		const timer = setInterval(() => {
 			setSecondsLeft(prev => {
 				if (prev <= 1) {
-					clearInterval(timerRef.current);
+					clearInterval(timer);
 					setIsRound(prev => !prev);
 					return 0;
 				}
@@ -62,8 +66,9 @@ export default function MainScreen({
 			});
 		}, 1000);
 
-		return () => clearInterval(timerRef.current);
+		return () => clearInterval(timer);
 	}, [playing, secondsLeft, isRound, difficulty, playCombo]);
+
 
 	useEffect(() => {
 		if (!playing || !isRound) return;
@@ -71,7 +76,12 @@ export default function MainScreen({
 		return () => clearInterval(id);
 	}, [playing, isRound, difficulty, focus, playCombo]);
 
-	const displayItems = combo ? combo.split(' ').map(word => (useNumbers ? word : word.replace(/_/g, ' '))) : [];
+	const displayItems = combo
+		? combo.split(' ').map(word =>
+			useNumbers && punchMap[word] ? punchMap[word] : word.replace(/_/g, ' ')
+		)
+		: [];
+
 
 	const togglePlay = () => {
 		if (playing) {
@@ -83,6 +93,12 @@ export default function MainScreen({
 			setSecondsLeft(difficulties[difficulty].roundTime);
 			playCombo();
 		}
+	};
+
+	const nextCombo = () => {
+		if (!playing) return;
+		speechCancel();
+		playCombo();
 	};
 
 	const speechCancel = () => {
@@ -111,12 +127,7 @@ export default function MainScreen({
 				playing={playing}
 				isRound={isRound}
 				onTogglePlay={togglePlay}
-				onNext={() => {
-					if (playing) {
-						speechCancel();
-						playCombo();
-					}
-				}}
+				onNextCombo={nextCombo}
 				onSettings={() => setSettingsVisible(true)}
 				styles={styles}
 			/>
@@ -128,6 +139,16 @@ export default function MainScreen({
 				color={theme.primary}
 				styles={styles}
 			/>
+
+			<TouchableOpacity
+				style={[styles.button, { minWidth: 200, backgroundColor: theme.primary }]}
+				onPress={() => navigation.navigate('Home')}
+				activeOpacity={0.8}
+			>
+				<Text style={styles.buttonText}>Back to Home</Text>
+			</TouchableOpacity>
+
+
 
 			<SettingsModal
 				visible={settingsVisible}
