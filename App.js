@@ -16,10 +16,12 @@ import difficulties from "./src/constants/difficulties.js";
 import punchMap from "./src/constants/punchMap.js";
 import themeNames from "./src/constants/themeNames.js";
 import speechVoices from "./src/constants/speechVoices.js";
+import BoxingGlove from "./src/components/BoxingGlove.js";
 
 import generateCombo from "./src/utils/generateCombo.js";
 import speakCombo from "./src/utils/speakCombo.js";
 import makeStyles from "./src/styles/makeStyles.js";
+export const navigationRef = React.createRef();
 
 export default function App() {
   const { width: windowWidth } = useWindowDimensions();
@@ -36,10 +38,12 @@ export default function App() {
   const [useNumbers, setUseNumbers] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("neonGreen");
   const [currentVoice, setCurrentVoice] = useState("default");
-
-
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [navigationReady, setNavigationReady] = useState(false);
+  const [nextRoute, setNextRoute] = useState(null);
   const timerRef = useRef(null);
   const Stack = createNativeStackNavigator();
+
 
   // Generates and speaks a new combo
   const playCombo = useCallback(() => {
@@ -52,6 +56,22 @@ export default function App() {
     setCombo(comboStr);
     speakCombo(comboStr, speechRate, currentVoice);
   }, [difficulty, focus, currentVoice]);
+
+  // Handle navigation with animation
+  const handleNavigate = (routeName) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setNextRoute(routeName);
+  };
+
+  const onAnimationEnd = () => {
+    setIsAnimating(false);
+    if (nextRoute && navigationRef.current) {
+      navigationRef.current?.navigate(nextRoute);
+      setNextRoute(null);
+    }
+  };
+
 
 
   // Timer logic
@@ -81,47 +101,33 @@ export default function App() {
     return () => clearInterval(timerRef.current);
   }, [playing, secondsLeft, isRound, difficulty, playCombo]);
 
-  // Trigger combos every 4s during round
+  // Trigger combos every 5s during round
   useEffect(() => {
     if (!playing || !isRound) return;
-    const id = setInterval(() => playCombo(), 4000);
+    const id = setInterval(() => playCombo(), 5000);
     return () => clearInterval(id);
   }, [playing, isRound, difficulty, focus, playCombo]);
 
-  // Format combo for display
-  const displayItems = combo ? combo.split(" ").map((m) => (useNumbers && punchMap[m] ? punchMap[m] : m.replace(/_/g, " "))) : [];
-
-  // Play/pause toggle handler
-  const togglePlay = () => {
-    if (playing) {
-      speechCancel();
-      setPlaying(false);
-    } else {
-      setPlaying(true);
-      setIsRound(true);
-      setSecondsLeft(difficulties[difficulty].roundTime);
-      playCombo();
-    }
-  };
-
   const styles = makeStyles(colorSchemes[currentTheme], isLargeScreen);
-
-  // Cancel speech helper
-  const speechCancel = () => {
-    try {
-      // Wrap in try/catch since Speech API can error in some states
-      Speech.cancel();
-    } catch { }
-  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <LinearGradient colors={colorSchemes[currentTheme].background} style={{ flex: 1 }}>
-        <NavigationContainer>
+        <NavigationContainer
+          ref={navigationRef}
+          onReady={() => setNavigationReady(true)}
+        >
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {/* Home Screen */}
             <Stack.Screen name="Home">
-              {(props) => <HomeScreen {...props} styles={styles} theme={colorSchemes[currentTheme]} />}
+              {(props) => (
+                <HomeScreen
+                  {...props}
+                  styles={styles}
+                  theme={colorSchemes[currentTheme]}
+                  handleNavigate={handleNavigate}
+                />
+              )}
             </Stack.Screen>
 
             {/* Main Training Screen */}
@@ -137,16 +143,18 @@ export default function App() {
                   focuses={focuses}
                   speechVoices={speechVoices}
                   themeNames={themeNames}
+                  handleNavigate={handleNavigate}
                 />
               )}
             </Stack.Screen>
 
             {/* Instructions Screen */}
             <Stack.Screen name="Instructions">
-              {(props) => <InstructionsScreen {...props} styles={styles} theme={colorSchemes[currentTheme]} />}
+              {(props) => <InstructionsScreen {...props} styles={styles} theme={colorSchemes[currentTheme]} handleNavigate={handleNavigate} />}
             </Stack.Screen>
           </Stack.Navigator>
         </NavigationContainer>
+        <BoxingGlove triggerAnimation={isAnimating} onAnimationEnd={onAnimationEnd} />
       </LinearGradient>
     </SafeAreaView>
   );

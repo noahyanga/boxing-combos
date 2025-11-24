@@ -16,25 +16,25 @@ const makeStyles = (theme, isLargeScreen) => StyleSheet.create({
 		backgroundColor: theme.background[0]
 	},
 	header: {
-		fontSize: 45,
+		fontSize: 35,
 		fontWeight: '900',
 		color: theme.primary,
-		textShadowColor: theme.primary,
-		textShadowRadius: 12,
-		textShadowOffset: { width: 0, height: 3 },
-		marginBottom: 40
+		marginBottom: 40,
+		textAlign: 'center'
 	},
 	statusContainer: {
 		marginBottom: 18,
 		alignItems: 'center'
 	},
 	statusText: {
-		fontSize: 18,
+		fontSize: 30,
 		fontWeight: '600',
-		color: theme.text
+		padding: 5,
+		color: theme.text,
+		textAlign: 'center',
 	},
 	breakText: {
-		fontSize: 26,
+		fontSize: 22,
 		fontWeight: '700',
 		color: theme.primary,
 		marginVertical: 8
@@ -43,9 +43,8 @@ const makeStyles = (theme, isLargeScreen) => StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		gap: 10,
-		maxWidth: '90%',
-		marginBottom: 40
+		gap: 15,
+		maxWidth: '100%',
 	},
 	comboBadge: {
 		backgroundColor: theme.badgeBackground,
@@ -81,6 +80,8 @@ const makeStyles = (theme, isLargeScreen) => StyleSheet.create({
 		marginVertical: 6,
 		marginHorizontal: 6, // safe default for row layout
 		backgroundColor: '#444',
+		flex: 1,
+		alignItems: 'center',
 		minWidth: 150,
 		elevation: 3,
 		shadowColor: '#000',

@@ -15,6 +15,7 @@ import generateCombo from '../utils/generateCombo';
 import speakCombo from '../utils/speakCombo';
 
 export default function MainScreen({
+	handleNavigate,
 	styles,
 	theme,
 	difficulties,
@@ -34,8 +35,6 @@ export default function MainScreen({
 	const [useNumbers, setUseNumbers] = useState(false);
 	const [currentVoice, setCurrentVoice] = useState('default');
 
-	const timerRef = useRef();
-	const navigation = useNavigation();
 
 	const playCombo = useCallback(() => {
 		const { minLen, maxLen, speechRate } = difficulties[difficulty] || difficulties.medium;
@@ -141,8 +140,8 @@ export default function MainScreen({
 			/>
 
 			<TouchableOpacity
-				style={[styles.button, { minWidth: 200, backgroundColor: theme.primary }]}
-				onPress={() => navigation.navigate('Home')}
+				style={[styles.button, { minWidth: 300, backgroundColor: theme.primary }]}
+				onPress={() => handleNavigate('Home')}
 				activeOpacity={0.8}
 			>
 				<Text style={styles.buttonText}>Back to Home</Text>
