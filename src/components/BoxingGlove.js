@@ -175,7 +175,6 @@ const styles = StyleSheet.create({
 		width: 250,
 		height: 250,
 		zIndex: 1,
-		border: 'dashed red 1px',
 		alignItems: 'center',
 		justifyContent: 'center',
 

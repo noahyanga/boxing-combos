@@ -32,7 +32,7 @@ export default function InstructionsScreen({ styles, theme }) {
 
 			<TouchableOpacity
 				style={[styles.button, { minWidth: 200, backgroundColor: theme.primary }]}
-				onPress={() => navigation.navigate('Home')}
+				onPress={() => navigation.navigate('Home - Boxing Combo Generator')}
 				activeOpacity={0.8}
 			>
 				<Text style={styles.buttonText}>Back to Home</Text>

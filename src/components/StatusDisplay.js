@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 
 export default function StatusDisplay({ roundInfo, difficulty, focus, styles }) {
 	const { isRound, secondsLeft } = roundInfo;
@@ -9,13 +9,14 @@ export default function StatusDisplay({ roundInfo, difficulty, focus, styles }) 
 			<Text style={styles.statusText}>
 				{isRound ? 'Round' : 'Rest'} — {secondsLeft}s remaining
 			</Text>
+			<Text style={styles.statusText}>Difficulty: {difficulty}</Text>
+			<Text style={styles.statusText}>Focus: {focus}</Text>
+
 			{!isRound && (
-				<Text style={[styles.statusText, { fontWeight: 'bold', color: styles.header.color }]}>
+				<Text style={[styles.statusText, { padding: 50, fontSize: 100, fontWeight: 'bold', color: styles.header.color }]}>
 					Take a Break! 💪
 				</Text>
 			)}
-			<Text style={styles.statusText}>Difficulty: {difficulty}</Text>
-			<Text style={styles.statusText}>Focus: {focus}</Text>
 		</View>
 	);
 }

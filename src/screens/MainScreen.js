@@ -9,7 +9,7 @@ import ToggleSwitch from '../components/ToggleSwitch';
 import SettingsModal from '../components/SettingsModal';
 import punchMap from '../constants/punchMap';
 import { Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Audio } from 'expo-av';
 
 import generateCombo from '../utils/generateCombo';
 import speakCombo from '../utils/speakCombo';
@@ -116,7 +116,7 @@ export default function MainScreen({
 				theme={theme}
 			/>
 
-			<ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.comboContainer}>
+			<ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={[styles.comboContainer, { justifyContent: 'center' }]}>
 				{displayItems.map((label, idx) => (
 					<ComboBadge key={idx} label={label} style={styles.comboBadge} textStyle={styles.comboText} />
 				))}
@@ -140,8 +140,8 @@ export default function MainScreen({
 			/>
 
 			<TouchableOpacity
-				style={[styles.button, { minWidth: 300, backgroundColor: theme.primary }]}
-				onPress={() => handleNavigate('Home')}
+				style={[styles.button, { backgroundColor: theme.primary }]}
+				onPress={() => handleNavigate('Home - Boxing Combo Generator')}
 				activeOpacity={0.8}
 			>
 				<Text style={styles.buttonText}>Back to Home</Text>

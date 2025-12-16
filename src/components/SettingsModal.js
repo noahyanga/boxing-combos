@@ -34,7 +34,7 @@ export default function SettingsModal({
 						<Text style={[styles.modalTitle, { color: theme.primary, marginTop: 20 }]}>Select Focus</Text>
 						{Object.keys(focuses).map(key => (
 							<Pressable key={key} onPress={() => onSelectFocus(key)} style={[styles.modalOption, focus === key && styles.modalOptionSelected]}>
-								<Text style={styles.modalOptionText}>{focuses[key].name}</Text>
+								<Text style={[styles.modalOptionText]}>{focuses[key].name}</Text>
 							</Pressable>
 						))}
 
@@ -57,7 +57,7 @@ export default function SettingsModal({
 					</TouchableOpacity>
 				</View>
 			</View>
-		</Modal>
+		</Modal >
 	);
 }
 

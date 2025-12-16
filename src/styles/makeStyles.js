@@ -40,36 +40,30 @@ const makeStyles = (theme, isLargeScreen) => StyleSheet.create({
 		marginVertical: 8
 	},
 	comboContainer: {
+		display: 'flex',
+		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		justifyContent: 'center',
 		gap: 15,
-		maxWidth: '100%',
+		width: '100%',
 	},
 	comboBadge: {
 		backgroundColor: theme.badgeBackground,
-		borderRadius: 24,
 		borderWidth: 2,
 		borderColor: theme.badgeBorder,
 		paddingVertical: 10,
 		paddingHorizontal: 20,
 		margin: 5,
 		flexDirection: 'row',
-		alignItems: 'center',
-		elevation: 5,
-		shadowColor: theme.primary,
-		shadowOpacity: 0.5,
-		shadowRadius: 8,
-		shadowOffset: { width: 0, height: 5 }
 	},
 	comboText: {
 		color: theme.primary,
 		fontWeight: '700',
-		fontSize: 25
+		fontSize: isLargeScreen ? 50 : 30
 	},
 	controls: {
 		flexDirection: isLargeScreen ? 'row' : 'column',
-		gap: 12,
+		gap: 10,
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
@@ -80,14 +74,10 @@ const makeStyles = (theme, isLargeScreen) => StyleSheet.create({
 		marginVertical: 6,
 		marginHorizontal: 6, // safe default for row layout
 		backgroundColor: '#444',
-		flex: 1,
+		maxHeight: 60,
 		alignItems: 'center',
 		minWidth: 150,
 		elevation: 3,
-		shadowColor: '#000',
-		shadowOpacity: 0.3,
-		shadowRadius: 6,
-		shadowOffset: { width: 0, height: 3 },
 	},
 	buttonPrimary: {
 		backgroundColor: theme.buttonBackground,
@@ -135,11 +125,11 @@ const makeStyles = (theme, isLargeScreen) => StyleSheet.create({
 		alignItems: 'center'
 	},
 	modalOptionSelected: {
-		backgroundColor: 'rgba(0,255,0,0.2)',
-		borderColor: '#0f0'
+		backgroundColor: theme.primary,
+		borderColor: theme.text
 	},
 	modalOptionText: {
-		color: '#b9fca1',
+		color: theme.text,
 		fontSize: 18,
 		fontWeight: '700'
 	},

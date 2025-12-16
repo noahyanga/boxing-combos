@@ -21,8 +21,6 @@ const baseWeights = {
 	step_right: 3,
 	shuffle: 3,
 	circle: 2,
-	jab_cross: 3,
-	hook_uppercut: 2,
 };
 
 export default baseWeights;

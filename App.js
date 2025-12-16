@@ -119,7 +119,7 @@ export default function App() {
         >
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {/* Home Screen */}
-            <Stack.Screen name="Home">
+            <Stack.Screen name="Home - Boxing Combo Generator">
               {(props) => (
                 <HomeScreen
                   {...props}
@@ -131,7 +131,7 @@ export default function App() {
             </Stack.Screen>
 
             {/* Main Training Screen */}
-            <Stack.Screen name="Main">
+            <Stack.Screen name="Main - Boxing Combo Generator">
               {(props) => (
                 <MainScreen
                   {...props}
@@ -149,7 +149,7 @@ export default function App() {
             </Stack.Screen>
 
             {/* Instructions Screen */}
-            <Stack.Screen name="Instructions">
+            <Stack.Screen name="Instructions - Boxing Combo Generator">
               {(props) => <InstructionsScreen {...props} styles={styles} theme={colorSchemes[currentTheme]} handleNavigate={handleNavigate} />}
             </Stack.Screen>
           </Stack.Navigator>

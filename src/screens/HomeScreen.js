@@ -23,7 +23,7 @@ export default function HomeScreen({ handleNavigate, styles, theme }) {
 
 			<TouchableOpacity
 				style={[styles.button, { minWidth: 200, backgroundColor: theme.primary, elevation: 4 }]}
-				onPress={() => handleNavigate('Main')}
+				onPress={() => handleNavigate('Main - Boxing Combo Generator')}
 				activeOpacity={0.85}
 			>
 				<Text style={styles.buttonText}>Start Training</Text>
@@ -31,7 +31,7 @@ export default function HomeScreen({ handleNavigate, styles, theme }) {
 
 			<TouchableOpacity
 				style={[styles.button, { minWidth: 200, marginTop: 20, backgroundColor: theme.buttonBackground, elevation: 2 }]}
-				onPress={() => navigation.navigate('Instructions')}
+				onPress={() => navigation.navigate('Instructions - Boxing Combo Generator')}
 				activeOpacity={0.85}
 			>
 				<Text style={styles.buttonText}>Instructions / Info</Text>

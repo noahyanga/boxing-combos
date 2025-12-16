@@ -21,10 +21,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		elevation: 5,
-		shadowColor: '#00e676',
-		shadowOpacity: 0.5,
-		shadowRadius: 8,
-		shadowOffset: { width: 0, height: 5 },
 	},
 	label: {
 		fontWeight: '700',
