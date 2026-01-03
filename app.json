@@ -3,6 +3,16 @@
     "name": "my-app",
     "slug": "my-app",
     "version": "1.0.0",
+    "expo": {
+      "plugins": [
+        [
+          "expo-av",
+          {
+            "microphonePermission": "Allow boxing app to play bell sounds"
+          }
+        ]
+      ]
+    },
     "extra": {
       "eas": {
         "projectId": "e40f393c-ed05-4e9d-a35f-064015f02ac2"
